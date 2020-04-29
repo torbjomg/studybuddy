@@ -8,14 +8,6 @@ import NavBar from "./components/Navbar";
 import SearchContainer from "./components/SearchContainer";
 
 function App() {
-  const [currentTime, setCurrentTime] = useState(0);
-  useEffect(() => {
-    fetch("/time")
-      .then((res) => res.json())
-      .then((data) => {
-        setCurrentTime(data.time);
-      });
-  }, []);
   return (
     <div className="App">
       <NavBar />
