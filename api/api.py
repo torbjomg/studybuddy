@@ -1,6 +1,6 @@
 from app import app, db
-from app.models import Article, Category, Content, Snippet
-import wikipedia
+from app.models import Article, Section, Snippet
+
 from flask import Flask, request
 
 
@@ -9,7 +9,6 @@ def make_shell_context():
     return {
         "db": db,
         "Article": Article,
-        "Category": Category,
-        "Content": Content,
+        "Section": Section,
         "Snippet": Snippet,
     }
