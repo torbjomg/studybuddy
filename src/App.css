@@ -73,21 +73,19 @@ body {
   width: 20%;
   outline: none;
 }
+/* temporary colors 
+    TODO
+*/
+.highlightcolor1 {
+  background-color: yellow;
+}
 
-.todo-item {
-  list-style-type: none;
-  padding: 17px 0px;
-  border-bottom: 1px solid #eaeaea;
+.highlightcolor2 {
+  background-color: orange;
 }
-.todo-item input {
-  margin-right: 15px;
+.highlightcolor3 {
+  background-color: orangered;
 }
-.todo-item button {
-  background: #d35e0f;
-  color: #fff;
-  border: 1px solid #d35e0f;
-  padding: 3px 7px;
-  cursor: pointer;
-  float: right;
-  outline: none;
+.highlightcolor4 {
+  background-color: green;
 }

@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "draft-js/dist/Draft.css";
 
 import NavBar from "./components/Navbar";
-import SearchContainer from "./components/SearchContainer";
+import ContentContainer from "./components/ContentContainer";
 
 function App() {
   return (
@@ -14,7 +13,7 @@ function App() {
       <header className="App-header"></header>
       <div className="row">
         <div className="col-md-8">
-          <SearchContainer />
+          <ContentContainer />
         </div>
         <div className="col-md-4">
           <p>some text</p>
