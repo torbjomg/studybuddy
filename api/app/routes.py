@@ -12,13 +12,22 @@ WIKI_API = wikipediaapi.Wikipedia("en")
 def wiki_search():
     data = request.get_json()
     search_term = data.get("searchTerm")
-    page = WIKI_API.page(search_term)
-    if not page.exists():
-        return {}
+    cached = Article.query.filter_by(url=search_term).first()
 
-    save_article(data=page)
-    results = {
-        "summary": page.summary,
-    }
+    if cached:
+        print("fetching cached data")
+        summary = Section.query.filter_by(
+            source=cached.id, name="Summary").first().content
+        results = {"summary": summary}
+    else:
+        print("fetching from wikipedia")
+        page = WIKI_API.page(search_term)
+        if not page.exists():
+            return {}
+
+        save_article(data=page)
+        results = {
+            "summary": page.summary,
+        }
 
     return results

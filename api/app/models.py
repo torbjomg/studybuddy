@@ -10,7 +10,7 @@ class Article(db.Model):
 class Section(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
-    content = db.Column(db.String(10000))
+    content = db.Column(db.String(30000))
     source = db.Column(db.Integer, db.ForeignKey("article.id"))
 
 

@@ -9,10 +9,14 @@ def save_article(data):
         return existing  # TODO get revision number
     else:
         # create new
-        new_article = Article(url=data.url, revision=data.revision_id)
+        new_article = Article(url=data.title, revision=0)
         db.session.add(new_article)
         db.session.commit()
         save_sections(new_article.id, data.sections)
+        summary_section = Section(
+            name="Summary", source=new_article.id, content=data.summary)
+        db.session.add(summary_section)
+        db.session.commit()
 
     return new_article
 
@@ -22,12 +26,14 @@ def save_sections(article_id, sections):
     for section in sections:
         name = section.title
         content = section.full_text()
-        existing = Section.query.filter_by(source=article_id, name=section).first()
+        existing = Section.query.filter_by(
+            source=article_id, name=section.title).first()
         if existing:
             # todo
             pass
         else:
             # create new
-            new_section = Section(name=section, source=article_id, content=content)
+            new_section = Section(
+                name=name, source=article_id, content=content)
             db.session.add(new_section)
             db.session.commit()
