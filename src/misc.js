@@ -13,4 +13,10 @@ async function postRequest(url, data) {
   });
   return response.json();
 }
-export default postRequest;
+
+function printSelection(e) {
+  e.preventDefault();
+  console.log(window.getSelection().toString());
+}
+
+export { postRequest, printSelection };

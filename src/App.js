@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import NavBar from "./components/Navbar";
 import ContentContainer from "./components/ContentContainer";
-
+import SectionControls from "./components/SectionControls";
 function App() {
   return (
     <div className="App">
@@ -16,8 +16,8 @@ function App() {
           <ContentContainer />
         </div>
         <div className="col-md-4">
-          <p>some text</p>
-          <p>controls go here</p>
+          <p>this will be a modal at some point #TODO</p>
+          <SectionControls />
         </div>
       </div>
       <div className="row"></div>

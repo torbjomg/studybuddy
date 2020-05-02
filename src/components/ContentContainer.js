@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, Fragment } from "react";
-import postRequest from "../misc";
+import { postRequest } from "../misc";
 
 function ContentContainer() {
   const [inputText, setInputText] = useState({ title: "" });
@@ -23,13 +23,14 @@ function ContentContainer() {
     textAreaRef.current.focus();
     textAreaRef.current.innerHTML = textContent;
   }, [textContent]);
+
   return (
     <Fragment>
       <div style={{ padding: 10 }}>
         <form
           onSubmit={handleSubmit}
           className="form-container"
-          autocomplete="off"
+          autoComplete="off"
         >
           <input
             type="text"

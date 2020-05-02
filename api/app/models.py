@@ -17,6 +17,8 @@ class Section(db.Model):
 class Snippet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     source = db.Column(db.Integer, db.ForeignKey("section.id"))
+    start_index = db.Column(db.Integer)
+    end_index = db.Column(db.Integer)
     question = db.Column(db.String(100))
     answer = db.Column(db.String(50))
     alternatives = db.Column(db.String(300))
