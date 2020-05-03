@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, Fragment } from "react";
 import { postRequest } from "../misc";
 import { Button, Modal } from "react-bootstrap";
 
-function SectionControls() {
+function SectionControls(props) {
   const [questionText, setQuestionText] = useState({ title: "" });
   const [answerText, setAnswerText] = useState({ title: "" });
 
@@ -25,18 +25,22 @@ function SectionControls() {
     let startIndex = selection.extentOffset;
     let endIndex = startIndex + content.length;
     let data = {
-      sectionId: "0", // TODO
+      sectionId: props.studyContent.source, // TODO
       question: questionText.title,
       answer: answerText.title,
       alternatives: "", // TODO
       start_index: startIndex,
       end_index: endIndex,
     };
-    console.log(data);
     // data : sectionId, question, answer, startIndex, endIndex, [alternatives, rating]
     postRequest("/save_snippet", data).then(
-      (data) => {
-        console.log(data);
+      (response) => {
+        if (response["success"]) {
+          console.log(response);
+        } else {
+          alert("something went wrong");
+          console.warn(response);
+        }
       }
       // TODO : re-render the contents of summary div with highlights
     );

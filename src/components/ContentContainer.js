@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState, Fragment } from "react";
 import { postRequest } from "../misc";
 
-function ContentContainer() {
+function ContentContainer(props) {
   const [inputText, setInputText] = useState({ title: "" });
-  const [textContent, setTextContent] = useState("");
   const textAreaRef = useRef(null);
   const onChange = (e) => {
     setInputText({
@@ -15,15 +14,17 @@ function ContentContainer() {
     e.preventDefault();
     postRequest("/wiki_search", { searchTerm: inputText.title }).then(
       (data) => {
-        setTextContent(data["summary"]);
+        // props.setCurrentSection(data["sectionId"]);
+        props.setSections(data.sections);
+        props.setStudyContent({
+          data,
+        });
       }
     );
   };
   useEffect(() => {
-    textAreaRef.current.focus();
-    textAreaRef.current.innerHTML = textContent;
-  }, [textContent]);
-
+    textAreaRef.current.innerHTML = props.studyContent.content;
+  }, [props.studyContent]);
   return (
     <Fragment>
       <div style={{ padding: 10 }}>

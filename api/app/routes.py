@@ -13,25 +13,31 @@ def wiki_search():
     data = request.get_json()
     search_term = data.get("searchTerm")
     # TODO : cache should actually be redis
-    cached = Article.query.filter_by(url=search_term).first()
+    article = Article.query.filter_by(url=search_term).first()
 
-    if cached:
+    if article:
         print("fetching cached data")
-        summary = (
-            Section.query.filter_by(source=cached.id, name="Summary").first().content
-        )
-        results = {"summary": summary}
+        section = Section.query.filter_by(source=article.id, name="Summary").first()
     else:
         print("fetching from wikipedia")
         page = WIKI_API.page(search_term)
         if not page.exists():
             return {}
 
-        save_article(data=page)
-        results = {
-            "summary": page.summary,
-        }
+        article = save_article(data=page)
+        section = Section.query.filter_by(source=article.id, name="Summary").first()
+        summary = page.summary
 
+    all_sections = [
+        {"id": s.id, "title": s.name}  #  send content too? TODO
+        for s in Section.query.filter_by(source=article.id).all()
+    ]
+    results = {
+        "summary": section.content,
+        "sectionId": section.id,
+        "articleId": section.source,
+        "sections": all_sections,
+    }
     return results
 
 
@@ -40,6 +46,25 @@ def save_snippet():
     data = request.get_json()
     try:
         save_snippet_to_db(data)
-        return {"success": True}
+        return {
+            "success": True,
+            "startIndex": data["start_index"],
+            "endIndex": data["end_index"],
+        }
     except Exception as exc:  # TODO exception types
         return {"success": False, "exception": str(exc)}
+
+
+@app.route("/get_section_contents", methods=["POST"])
+def get_section_contents():
+    data = request.get_json()
+    section = Section.query.filter_by(id=data["sectionId"]).first()
+    if not section:
+        # TODO
+        return {}
+    else:
+        return {
+            "name": section.name,
+            "content": section.content,
+            "source": section.source,
+        }

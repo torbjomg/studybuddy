@@ -14,9 +14,4 @@ async function postRequest(url, data) {
   return response.json();
 }
 
-function printSelection(e) {
-  e.preventDefault();
-  console.log(window.getSelection().toString());
-}
-
-export { postRequest, printSelection };
+export { postRequest };

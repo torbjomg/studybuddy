@@ -24,8 +24,18 @@ def save_article(data):
 
 def save_sections(article_id, sections):
     # loop over each section <str>, save with foreignkey to article id
+    skip_names = (
+        "see also",
+        "notes",
+        "sources",
+        "references",
+        "external links",
+        "citations",
+    )
     for section in sections:
         name = section.title
+        if name.lower() in skip_names:
+            continue
         content = section.full_text()
         existing = Section.query.filter_by(
             source=article_id, name=section.title
