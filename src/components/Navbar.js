@@ -2,15 +2,15 @@ import React from "react";
 
 import { Navbar, NavDropdown, Nav } from "react-bootstrap";
 
-function NavBar() {
+function NavBar(props) {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
       <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="#features">Function1</Nav.Link>
-          <Nav.Link href="#pricing">Function2</Nav.Link>
+          <Nav.Link href="/study">STUDY</Nav.Link>
+          <Nav.Link href="/quiz">QUIZ</Nav.Link>
           <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">
