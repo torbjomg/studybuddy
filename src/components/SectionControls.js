@@ -1,10 +1,13 @@
-import React, { useEffect, useRef, useState, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { postRequest } from "../misc";
 import { Button, Modal } from "react-bootstrap";
 
 function SectionControls(props) {
   const [questionText, setQuestionText] = useState({ title: "" });
   const [answerText, setAnswerText] = useState({ title: "" });
+  const [showModal, setShowModal] = useState(false);
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
 
   const onChangeQuestion = (e) => {
     setQuestionText({
@@ -47,10 +50,25 @@ function SectionControls(props) {
   };
   return (
     <Fragment>
-      <Button variant="primary">Primary</Button>
-      <Modal.Dialog>
+      <br />
+      <p>
+        <Button variant="primary" onClick={handleShow}>
+          Add Question
+        </Button>
+      </p>
+      <p>
+        <Button
+          variant="primary"
+          onClick={() => {
+            alert("TODO");
+          }}
+        >
+          Toggle Questions Highlighting
+        </Button>
+      </p>
+      <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Set query and response</Modal.Title>
+          <Modal.Title>Set question and answer</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>Define a question that can be answered in a brief response</p>
@@ -58,6 +76,15 @@ function SectionControls(props) {
             The highlighted text will serve as context, and the answer to your
             question should be easily understood from the context
           </p>
+          <p>Context:</p>
+          <input
+            className="highlight-text-container"
+            readonly="true"
+            autoComplete="off"
+            type="textarea"
+            value={window.getSelection()}
+          />
+          <br />
           <input
             autoComplete="off"
             type="text"
@@ -78,12 +105,14 @@ function SectionControls(props) {
             onChange={onChangeAnswer}
           />
           <br />
-          <Button variant="secondary">Cancel</Button>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
           <Button variant="primary" onClick={handleSubmit}>
             Save
           </Button>
         </Modal.Body>
-      </Modal.Dialog>
+      </Modal>
     </Fragment>
   );
 }

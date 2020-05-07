@@ -50,6 +50,19 @@ body {
   display: flex;
   width: 100%;
 }
+.highlight-text-container {
+  font-size: 14px;
+  padding: 12px;
+  border: none;
+  color: #999;
+  background-color: #e4e4e4;
+  display: inline-block;
+  width: 100%;
+}
+.highlight-text-container:hover {
+  border: none;
+  cursor: default;
+}
 .input-text {
   flex: 8;
   font-size: 14px;
@@ -57,7 +70,8 @@ body {
   border: 1px solid #cecece;
   outline: none;
   font-weight: 400;
-  max-width: 80%;
+  display: inline-block;
+  width: 100%;
 }
 .input-text::placeholder {
   color: #999;

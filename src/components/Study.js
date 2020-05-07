@@ -19,7 +19,6 @@ function Study(props) {
         />
       </div>
       <div className="col-md-4">
-        <p>this will be a modal at some point #TODO</p>
         <SectionControls studyContent={studyContent} />
         <SectionList
           sections={sections}

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { Button } from "react-bootstrap";
 import { postRequest } from "../misc";
 
@@ -14,6 +14,7 @@ function SectionList(props) {
     <Fragment>
       {props.sections.length > 0 ? (
         <Fragment>
+          <p>Select Page Category:</p>
           {props.sections.map((section) => (
             <div>
               <p>
@@ -28,7 +29,7 @@ function SectionList(props) {
           ))}
         </Fragment>
       ) : (
-        <p>Nothing selected</p>
+        <div></div>
       )}
     </Fragment>
   );
