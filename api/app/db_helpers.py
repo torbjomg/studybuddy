@@ -9,7 +9,10 @@ def save_article(data):
         return existing  # TODO get revision number
     else:
         # create new
-        new_article = Article(url=data.title, revision=0)
+        attr = data._attributes
+        new_article = Article(
+            url=attr["fullurl"], revision=attr["lastrevid"], title=data.title
+        )
         db.session.add(new_article)
         db.session.commit()
         save_sections(new_article.id, data.sections)
@@ -60,5 +63,6 @@ def save_snippet_to_db(data):
         end_index=data["end_index"],
         rating=0,
     )
+    print(data)
     db.session.add(new_snippet)
     db.session.commit()

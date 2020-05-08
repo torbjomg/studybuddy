@@ -68,3 +68,11 @@ def get_section_contents():
             "content": section.content,
             "source": section.source,
         }
+
+
+@app.route("/get_saved_topics", methods=["POST"])
+def get_saved_topics():
+    # retrieve article names
+    data = request.get_json()
+    articles = Article.query.all()
+    return {"titles": [a.title for a in articles]}

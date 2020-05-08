@@ -4,6 +4,7 @@ from app import db
 class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(150))
+    title = db.Column(db.String(100))
     revision = db.Column(db.Integer)
 
 

@@ -25,6 +25,7 @@ function SectionControls(props) {
     e.preventDefault();
     let selection = window.getSelection();
     let content = selection.toString();
+    // TODO - indices dont work with modal
     let startIndex = selection.extentOffset;
     let endIndex = startIndex + content.length;
     let data = {
