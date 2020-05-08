@@ -1,4 +1,4 @@
-from app.models import Article, Section, Snippet
+from app.models import Article, Section, Question
 from app import db
 
 
@@ -53,8 +53,8 @@ def save_sections(article_id, sections):
             db.session.commit()
 
 
-def save_snippet_to_db(data):
-    new_snippet = Snippet(
+def save_question_to_db(data):
+    new_question = Question(
         source=data["sectionId"],
         question=data["question"],
         answer=data["answer"],
@@ -63,6 +63,11 @@ def save_snippet_to_db(data):
         end_index=data["end_index"],
         rating=0,
     )
-    print(data)
-    db.session.add(new_snippet)
+    db.session.add(new_question)
     db.session.commit()
+
+
+def get_all_questions():
+    # organize questions in json format
+    # {article_title: {section_title: question_json}}
+    pass

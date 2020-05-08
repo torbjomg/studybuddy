@@ -2,8 +2,8 @@ from flask import request
 import wikipediaapi
 
 from app import app, db
-from app.models import Article, Section, Snippet
-from app.db_helpers import save_article, save_snippet_to_db
+from app.models import Article, Section, Question
+from app.db_helpers import save_article, save_question_to_db
 
 WIKI_API = wikipediaapi.Wikipedia("en")
 
@@ -41,11 +41,11 @@ def wiki_search():
     return results
 
 
-@app.route("/save_snippet", methods=["POST"])
-def save_snippet():
+@app.route("/save_question", methods=["POST"])
+def save_question():
     data = request.get_json()
     try:
-        save_snippet_to_db(data)
+        save_question_to_db(data)
         return {
             "success": True,
             "startIndex": data["start_index"],
@@ -76,3 +76,23 @@ def get_saved_topics():
     data = request.get_json()
     articles = Article.query.all()
     return {"titles": [a.title for a in articles]}
+
+
+@app.route("/get_questions", methods=["POST"])
+def get_questions():
+    data = request.get_json()
+    questions = Question.query.all()
+    # terrible way of getting article, send article id from react instead ( TODO )
+    section_ids = {s.source for s in questions}
+    article_ids = set()
+    sections = []
+    for section_id in section_ids:
+        section = Section.query.filter_by(id=section_id).first()
+        sections.append(section)
+        article_ids.add(section.source)
+
+    result = {
+        "questions": [s.jsonify for s in questions],
+        "topics": list({s.name for s in sections}),
+    }
+    return result

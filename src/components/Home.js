@@ -14,10 +14,10 @@ function Home() {
     e.preventDefault();
     postRequest("/get_saved_topics", {}).then((data) => {
       setTopics(data.titles);
-      console.log(data.titles);
     });
   };
   function goToTopic(topic) {
+    // TODO
     console.log(topic);
   }
   return (

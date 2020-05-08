@@ -1,5 +1,5 @@
 from app import app, db
-from app.models import Article, Section, Snippet
+from app.models import Article, Section, Question
 
 from flask import Flask, request
 
@@ -10,5 +10,5 @@ def make_shell_context():
         "db": db,
         "Article": Article,
         "Section": Section,
-        "Snippet": Snippet,
+        "Question": Question,
     }

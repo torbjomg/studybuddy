@@ -37,7 +37,7 @@ function SectionControls(props) {
       end_index: endIndex,
     };
     // data : sectionId, question, answer, startIndex, endIndex, [alternatives, rating]
-    postRequest("/save_snippet", data).then(
+    postRequest("/save_question", data).then(
       (response) => {
         if (response["success"]) {
           console.log(response);

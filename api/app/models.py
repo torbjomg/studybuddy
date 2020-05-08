@@ -15,7 +15,7 @@ class Section(db.Model):
     source = db.Column(db.Integer, db.ForeignKey("article.id"))
 
 
-class Snippet(db.Model):
+class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     source = db.Column(db.Integer, db.ForeignKey("section.id"))
     start_index = db.Column(db.Integer)
@@ -24,3 +24,19 @@ class Snippet(db.Model):
     answer = db.Column(db.String(50))
     alternatives = db.Column(db.String(300))
     rating = db.Column(db.Integer)
+
+    @property
+    def jsonify(self):
+        return {
+            "question": self.question,
+            "answer": self.answer,
+            "rating": self.rating,
+            "alternatives": self.alternatives,
+            "source": self.get_parent_section().name,
+        }
+
+    def get_parent_section(self):
+        return Section.query.filter_by(id=self.source).first()
+
+    def get_parent_article(self):
+        return Article.query.filter_by(id=self.get_parent_section().source).first()
